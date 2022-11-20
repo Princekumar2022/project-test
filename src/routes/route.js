@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require("../middleware/auth")
+const { authenticate, authorization } = require("../middleware/auth")
 const { createUser, loginUser, updateUser, deleteUser } = require('../controllers/userController')
 
 
@@ -14,6 +14,7 @@ router.get("/test-me" , function(req,res){
 })
 
 
+
 //........................................User API............................................//
 
 // create
@@ -23,15 +24,10 @@ router.post('/register', createUser)
 router.post('/login', loginUser)
 
 // update user
-router.put('/user/:userId', authenticate,updateUser)
+router.put('/user/:userId', authenticate, authorization, updateUser)
 
 // delete user
-router.delete('/user/:userId', authenticate, deleteUser)
-
-
-
-
-
+router.delete('/user/:userId', authenticate, authorization, deleteUser)
 
 
 
